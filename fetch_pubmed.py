@@ -7,7 +7,7 @@ Uses NCBI's free E-utilities API:
 
 Usage:
   python fetch_pubmed.py --query "social determinants of health clinical notes natural language processing" --max 500
-  python fetch_pubmed.py --query "..." --max 1000 --email you@example.com --api-key YOUR_KEY
+  python fetch_pubmed.py --query-file queries/sdoh_nlp.txt --max 1000 --min-year 2018 --email you@example.com
 
 Output: data/abstracts.jsonl (one paper per line)
 """
@@ -120,13 +120,21 @@ def parse_articles(xml_text):
 
 def main():
     p = argparse.ArgumentParser(description="Fetch PubMed abstracts to JSONL")
-    p.add_argument("--query", required=True, help="PubMed search query")
+    q = p.add_mutually_exclusive_group(required=True)
+    q.add_argument("--query", help="PubMed search query")
+    q.add_argument("--query-file", help="Text file containing the PubMed query (avoids shell quoting issues)")
     p.add_argument("--max", type=int, default=500, help="Max papers to fetch")
     p.add_argument("--min-year", type=int, default=None, help="Only papers from this year on")
     p.add_argument("--email", default=os.getenv("NCBI_EMAIL"), help="Your email (NCBI asks for it)")
     p.add_argument("--api-key", default=os.getenv("NCBI_API_KEY"), help="Optional NCBI API key")
     p.add_argument("--out", default="data/abstracts.jsonl")
     args = p.parse_args()
+
+    if args.query_file:
+        with open(args.query_file, encoding="utf-8") as f:
+            # Join lines so the query can be written across several lines for readability
+            args.query = " ".join(line.strip() for line in f if line.strip())
+        print(f"Query: {args.query}")
 
     # NCBI limit: 3 requests/sec without a key, 10/sec with one
     delay = 0.11 if args.api_key else 0.34
@@ -153,3 +161,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    

@@ -1,0 +1,3 @@
+("social determinants of health" OR SDOH OR "social needs" OR "social risk" OR "housing instability" OR homelessness OR "food insecurity" OR "financial strain" OR "social isolation" OR transportation)
+AND ("natural language processing" OR NLP OR "text mining" OR "information extraction" OR "large language model" OR "language model" OR BERT OR transformer)
+AND ("clinical notes" OR "clinical text" OR "electronic health records" OR EHR OR EMR OR "medical records" OR "clinical documentation")
