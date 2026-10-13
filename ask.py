@@ -69,7 +69,7 @@ def main():
     p.add_argument("--index", default="index")
     args = p.parse_args()
 
-    load_dotenv()
+    load_dotenv(override=True)
     if not os.getenv("OPENAI_API_KEY"):
         raise SystemExit("No OPENAI_API_KEY found. Add it to a .env file in the project folder.")
     model = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
