@@ -34,7 +34,7 @@ Built from the PubMed query in [`queries/sdoh_nlp.txt`](queries/sdoh_nlp.txt), w
 | Date range | 2015 onward, to span the rule-based, transformer, and LLM eras |
 | PubMed matches | 197 (fetched October 2026) |
 | Papers with abstracts | 193 |
-| Papers from 2015–2017 | 7 |
+| Papers from 2015–2017 | 8 |
 
 Almost all of the literature dates from 2018 onward. The small corpus size reflects how young and specialized this research area is.
 
